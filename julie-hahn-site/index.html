@@ -374,7 +374,7 @@ footer{
   .studio-image::before{display:none}
   .contact-grid{grid-template-columns:1fr}
   .contact-image{height:320px}
-  .contact-form-side{padding:48px 24px !important}
+  .contact-form-side{padding:24px 24px 48px !important}
   .gallery-masonry{columns:2;column-gap:6px}
   .form-row{grid-template-columns:1fr}
   footer{flex-direction:column;gap:16px;text-align:center;padding:32px 24px}
@@ -638,10 +638,16 @@ function toggleMenu(){
 // Smooth scroll
 function scrollToSection(id){
   const el = document.getElementById(id);
-  if(el){
-    const navHeight = document.querySelector('nav').offsetHeight;
+  if(!el) return;
+  const navHeight = document.querySelector('nav').offsetHeight;
+  function doScroll(){
     const top = el.getBoundingClientRect().top + window.pageYOffset - navHeight;
     window.scrollTo({top: top, behavior:'smooth'});
+  }
+  if(document.readyState !== 'complete'){
+    window.addEventListener('load', doScroll, {once: true});
+  } else {
+    doScroll();
   }
 }
 
