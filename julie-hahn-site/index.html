@@ -402,7 +402,7 @@ footer{
     <li><a href="#concert">Performances</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#studio">Studio</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="javascript:void(0)" onclick="scrollToSection('contact')">Contact</a></li>
   </ul>
   <div class="nav-social">
   </div>
@@ -638,7 +638,11 @@ function toggleMenu(){
 // Smooth scroll
 function scrollToSection(id){
   const el = document.getElementById(id);
-  if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); }
+  if(el){
+    const navHeight = document.querySelector('nav').offsetHeight;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - navHeight;
+    window.scrollTo({top: top, behavior:'smooth'});
+  }
 }
 
 // Scroll reveal
